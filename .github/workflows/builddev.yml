@@ -34,7 +34,7 @@ jobs:
         id: tagger
         uses: jimschubert/query-tag-action@v2
         with:
-          include: '^build-number*'
+          include: 'build-number*'
           commit-ish: 'HEAD~'
           # if you unshallow in a separate step, use the following option:
           # skip-unshallow: 'true'
