@@ -41,7 +41,7 @@ jobs:
       - name: Find Tag
         id: tagger
         run: |
-          git fetch origin master && git describe --tag $(git rev-parse --verify refs/remotes/origin/master) --match 'build-number-*' --abbrev=0 | xargs -I{} echo "::set-output name=tag::{}"
+          git fetch origin master --tags && git describe --tag $(git rev-parse --verify refs/remotes/origin/master) --match 'build-number-*' --abbrev=0 | xargs -I{} echo "::set-output name=tag::{}"
       - name: Show Tag
         id: display
         run: |
