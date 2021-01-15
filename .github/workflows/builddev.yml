@@ -30,14 +30,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       # Runs a single command using the runners shell
+#       - name: Find Tag
+#         id: tagger
+#         uses: jimschubert/query-tag-action@v2
+#         with:
+#           include: 'build-number*'
+#           commit-ish: 'HEAD~'
+#           # if you unshallow in a separate step, use the following option:
+#           # skip-unshallow: 'true'
       - name: Find Tag
         id: tagger
-        uses: jimschubert/query-tag-action@v2
-        with:
-          include: 'build-number*'
-          commit-ish: 'HEAD~'
-          # if you unshallow in a separate step, use the following option:
-          # skip-unshallow: 'true'
+        run: |
+          git describe --tag $(git rev-parse --verify refs/remotes/origin/master) --match 'build-number-*' --abbrev=0 | xargs -I{} echo "::set-output name=tag::{}"
       - name: Show Tag
         id: display
         run: |
